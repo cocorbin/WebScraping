@@ -66,7 +66,7 @@ for y in range(2016, 2022):
                     fd.write(chunk)
 
 
-            ## The file must be translated from the proproetary adobe format in order to be accesible to
+            ## The file must be translated from the proprietary adobe format in order to be accesible to
             ## standard text or html parsers
 
             page = open("crime.pdf", 'rb')
@@ -76,9 +76,12 @@ for y in range(2016, 2022):
             pdf = urlopen(url)
             soup = BeautifulSoup(pdf)
 
-            #pdf = pdfquery.PDFQuery(soup)
-            #pdf.doc
-            #pdf.doc.catalog
+
+            '''
+            pdf = pdfquery.PDFQuery(soup)
+            pdf.doc
+            pdf.doc.catalog
+            '''
 
             content2 = str(content)
             content3 = content2.replace(" ", "\n")
@@ -117,12 +120,11 @@ for y in range(2016, 2022):
 
         # Build timestamp
         timestamp = str(date)
-        '
+
         # Write timestamp and count of homocides to file
         #h.write(timestamp + ',' + murders + '\n')
-
-
          '''
+
 # Done getting data! Close file.
 f.close()
 

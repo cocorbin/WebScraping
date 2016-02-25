@@ -19,28 +19,30 @@ _contact_: cocorbin@uchicago.edu
 
 ##### Import Packages #####
 import os
-import time
-import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from patsy import dmatrices
+from ggplot import *
+
+'''
+import time
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cbook as cbook
-
+'''
 
 os.chdir("/Users/cocorbin/PycharmProjects/untitled4/")
 
-#Date = pd.date_range('1/1/2001', periods = 5533, freq = 'D')
-#Month = pd.date_range('1/2001', periods = 182, freq = 'M')
-
-#print(open('data/homicides_monthly.csv').read())
+'''
+Date = pd.date_range('1/1/2001', periods = 5533, freq = 'D')
+Month = pd.date_range('1/2001', periods = 182, freq = 'M')
+print(open('data/homicides_monthly.csv').read())
+'''
 
 m1 = pd.read_csv('data/homicides_monthly.csv', names = ['Month', 'Total'], header = 0, index_col= None, parse_dates=['Month'])
 m2 = pd.read_csv('data/homicides_daily.csv', names = ['Date', 'Count'],header = 0, index_col= None, parse_dates=['Date'])
-w1 = pd.read_csv('code/weather-data-monthly.csv', names = ['Month', 'Average'], header = 0, index_col= None, parse_dates=['Month'])
-w2 = pd.read_csv('code/weather-data-daily.csv', names = ['Date', 'Temp'], header = 0, index_col= None, parse_dates=['Date'])
-
-
+w1 = pd.read_csv('data/weather-data-monthly.csv', names = ['Month', 'Average'], header = 0, index_col= None, parse_dates=['Month'])
+w2 = pd.read_csv('data/weather-data-daily.csv', names = ['Date', 'Temp'], header = 0, index_col= None, parse_dates=['Date'])
 
 """
 m1.reset_index()
@@ -58,13 +60,15 @@ print(dfM, dfD)
 
 
 dfD['t2'] = dfD['Temp'] * dfD['Temp']
+dfM['a2'] = dfM['Average'] * dfM['Average']
+
+
 vars1 = ['Count', 'Temp']
 df1 = dfD[vars1]
 y1, X1 = dmatrices('Count ~ Temp', data = df1, return_type = 'dataframe')
 mod1 = sm.OLS(y1, X1)
 res1 = mod1.fit()
 print(res1.summary())
-
 
 vars2 = ['Count', 'Temp', 't2']
 df2 = dfD[vars2]
@@ -73,18 +77,12 @@ mod2 = sm.OLS(y2, X2)
 res2 = mod2.fit()
 print(res2.summary())
 
-
-
-dfM['a2'] = dfM['Average'] * dfM['Average']
-
 vars3 = ['Total', 'Average']
 df3 = dfM[vars3]
 y3, X3 = dmatrices('Total ~ Average', data = df3, return_type = 'dataframe')
 mod3 = sm.OLS(y3, X3)
 res3 = mod3.fit()
 print(res3.summary())
-
-
 
 vars4 = ['Total', 'Average', 'a2']
 df4 = dfM[vars4]
@@ -102,4 +100,10 @@ plt.plotfile(homicides, cols(0,1), delimiter=',')
 plt.xlabel('Time')
 plt.ylabel('Temp. vs Homicide')
 plt.show()
+
+time = dfM['Month']
+murders = dfM['Total']
+temp = dfM['Average']
+plot_m = ggplot(aes(x='time', y='murders'), data = dfM) + stat_smooth()
+ggsave(plot_m, "plot_m.svg")
 '''

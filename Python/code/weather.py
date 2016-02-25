@@ -37,12 +37,12 @@ with open('weather-data-monthly.csv', 'w') as monthlyFile:
         for m in range(1, 13):
 
             '''
-        for d in range(31, 27, -1):
-        if (m == 2 and d > 28):
-            continue
-        elif (m in [4, 6, 9, 10] and d > 30):
-            continue
-        '''
+            for d in range(31, 27, -1):
+            if (m == 2 and d > 28):
+                continue
+            elif (m in [4, 6, 9, 10] and d > 30):
+                continue
+            '''
 
             if (y == 2016 and m > 2):
                 continue
@@ -90,8 +90,11 @@ with open('weather-data-monthly.csv', 'w') as monthlyFile:
             time.sleep(0.5)
         time.sleep(0.5)
     time.sleep(0.5)
+
 # Done getting monthly data! Close file.
 monthlyFile.close()
+
+# Go to sleep before starting daily temperature collection
 time.sleep(2.5)
 
 # Create/open a file called wunder.txt (which will be a comma-delimited file)
@@ -151,6 +154,7 @@ with open('weather-data-daily.csv', 'w') as dailyFile:
                 time.sleep(0.5)
         time.sleep(0.5)
     time.sleep(0.5)
+
 # Done getting daily data! Close file.
 dailyFile.close()
 
